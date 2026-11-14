@@ -1,8 +1,19 @@
-CREATE DATABASE cumpleanos_mx CHARACTER SET utf8mb4;
+-- =============================================
+-- Proyecto: ¿Qué tan común es tu cumpleaños?
+-- Archivo:  01_carga.sql
+-- Qué hace: crea la base de datos y carga los nacimientos 2023 (SINAC)
+-- Fuente:   datos.gob.mx - Registro de nacimientos, Secretaría de Salud
+-- =============================================
+
+
+CREATE DATABASE IF NOT EXISTS cumpleanos_mx CHARACTER SET utf8mb4;
 
 USE cumpleanos_mx;
 
 SHOW VARIABLES LIKE 'secure_file_priv';
+
+
+DROP TABLE IF EXISTS nacimientos_raw;
 
 CREATE TABLE nacimientos_raw (
     fecha_nacimiento  VARCHAR(20),
@@ -39,5 +50,10 @@ SET anio_archivo = 2023;
 
 SELECT COUNT(*)FROM nacimientos_raw;
 
+SELECT * FROM nacimientos_raw LIMIT 2;
+
+
+-- Verificación: debe dar 1,521,280 (total publicado en datos.gob.mx)
+SELECT COUNT(*) FROM nacimientos_raw;
 SELECT * FROM nacimientos_raw LIMIT 2;
 
